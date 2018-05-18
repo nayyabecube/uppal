@@ -1,0 +1,59 @@
+<?xml version="1.0"?> 
+<odoo>
+
+  <record id="view_pak_cites_form" model="ir.ui.view">
+            <field name="name">pak_cites</field>
+            <field name="model">pak.cites</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                
+                <form string="Pakistan Cites">
+                    <sheet>
+                        <!--<h1><field name="name" attrs="{'invisible': [('name','=','/')]}"/></h1>-->
+                        <group name="group_top">
+                            <group name="group_left">
+
+                                
+                                <field name="name"/>
+                        
+                            </group>
+                    
+                            <group name="group_right">
+                                <field name="pak_city_code"/>
+        
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_pak_cites__tree" model="ir.ui.view">
+            <field name="name">Pakistan Cites</field>
+            <field name="model">pak.cites</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+
+                <tree string="Pakistan Cities">
+
+                    <field name="name"/>
+                    <field name="pak_city_code"/>
+
+                </tree>
+               
+            </field>
+
+        </record>
+        <record model="ir.actions.act_window" id="action_pak_cites">
+            <field name="name">Pakistan Cites</field>
+            <field name="res_model">pak.cites</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem action="action_pak_cites" id="first_menu_pak_cites" name="Cites of Pakistan" parent="sales_team.menu_sale_config" sequence="7" />
+
+
+    
+
+
+</odoo>

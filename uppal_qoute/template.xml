@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <report
+            id="report_for_uppal_qoute" 
+            model="sale.order"
+            name="uppal_qoute.module_report"
+            file="uppal_qoute.module_report"
+            report_type="qweb-html"
+            string="Quotation UEC"/> 
+    </data>
+</openerp>

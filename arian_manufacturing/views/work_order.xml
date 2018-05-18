@@ -1,0 +1,241 @@
+<odoo>
+
+            <!--========================[Form View-START]=====================-->
+ 
+                <record id="work_orders_form_view" model="ir.ui.view">
+                    <field name="name">work_orders_form_view</field>
+                    <field name="model">ecube.workorders</field>
+                    <field name="type">form</field>
+                    <field name="arch" type="xml">
+                        <form>
+                            <header>
+                                <button name="lot_issue" type="object" string="Lot Issuing" class="oe_highlight" attrs="{'invisible':[('stages','!=','draft')]}" />
+                                <button name="lot_rec" type="object" string="Lot Receiving" class="oe_highlight" attrs="{'invisible':[('stages','!=','draft')]}" />
+                                <field name="stages" widget="statusbar" statusbar_visible="draft,progress,done"/>
+
+                            </header>
+                            <sheet>
+                                <group >
+                                    <group >
+                                        <field name="name"/>         
+                                        <field name="mo_id"/>         
+                                        <field name="product_id"/>         
+                                        <field name="work_center"/>         
+                                        <field name="operation_name"/>         
+                                        <field name="parent_operations" widget = "many2many_tags"/>         
+                                         
+                                    </group>
+                                    <group>
+                                        <field name="total_qty"/>         
+                                        <field name="received_qty"/>  
+                                        <field name="remaining_qty"/> 
+                                        <field name="doc_type"/> 
+                                    </group>
+                                </group>
+                                <notebook>               
+                                    <page string="Receiving" >         
+                                        <field name="wo_receiving" nolabel='1'>
+                                            <tree editable="bottom">
+                                                <field name="lot_no" required="1" options="{'no_create_edit': True}"/>
+                                                <field name="lot_total_qty"/>
+                                                <field name="lot_available_qty"/>
+                                                <field name="qty_received"/>
+                                                <field name="qty_remaining"/>
+                                                <field name="workorder_id"/>
+                                            </tree>
+                                        </field> 
+
+
+
+
+
+                   
+                                    </page>
+                                    <page string="Lotting" >         
+                                        <field name="wo_lotting" nolabel='1'>
+                                            <tree editable="bottom">
+                                                <field name="available_lot"/>
+                                                <field name="available_qty"/>
+                                                <field name="qty"/>
+                                                <field name="workorder_id"/>
+
+                                            </tree>
+                                        </field>                 
+                                    </page>
+                                    <page string="Time Tracking" >         
+                                        <!-- <field name="slabs" nolabel='1' attrs="{'readonly': [('stages','=','validate')]}">
+                                            <tree editable="bottom">
+                                                <field name="target_name" required="1"/>
+                                                <field name="from_target"/>
+                                                <field name="to_target"/>
+                                                <field name="discount_percentage"/>
+                                            </tree>
+                                        </field>   -->                  
+                                    </page>
+
+                                </notebook>
+                            </sheet>
+                        </form>
+                    </field>
+                </record>
+
+            <!--************************[Form View-ENDS]**********************-->
+
+                <record id="work_orders_tree_view" model="ir.ui.view"> 
+                    <field name="name">work_orders_tree_view</field> 
+                    <field name="model">ecube.workorders</field> 
+                    <field name="type">tree</field> 
+                    <field name="arch" type="xml"> 
+                        <tree> 
+                 
+                            <field name="name" />
+                            <field name="mo_id"/>
+                            <field name="product_id"/>
+                            <field name="work_center"/>
+                            <field name="operation_name"/>
+                            <field name="total_qty"/>
+                            
+
+
+
+                           
+                        
+     
+                        </tree> 
+                    </field> 
+            
+                </record>
+
+            <!--========================[Action-START]========================-->
+
+                <record model="ir.actions.act_window" id="work_orders_actions">
+                    <field name="name">Work Orders</field>
+                    <field name="res_model">ecube.workorders</field>
+                    <field name="view_type">form</field>
+                    <field name="view_mode">tree,form</field>
+                </record>
+
+            <!--************************[Action-ENDS]*************************-->
+
+            <menuitem
+                id="work_orders_menu"
+                name="Work Orderss"
+                parent="mrp.menu_mrp_manufacturing"
+                action="work_orders_actions"
+                sequence="3"/>
+
+            <record id="work_order_sequence" model="ir.sequence">
+                <field name="name">work_order_sequence</field>
+                <field name="code">ecube.workorders</field>
+                <field name="prefix">WO</field>
+                <field name="padding">0</field>
+            </record>
+
+
+
+            <record id="operations_extension" model="ir.ui.view"> 
+                <field name="name">operations_extension</field> 
+                <field name="model">mrp.routing.workcenter</field>
+                <field name="inherit_id" ref="mrp.mrp_routing_workcenter_form_view"/>
+                <field name="arch" type="xml">
+
+                    <xpath expr="//field[@name='workcenter_id']" position="after">
+                        <field name="parent_operations" widget = "many2many_tags" />
+                    </xpath>
+                    <xpath expr="//field[@name='name']" position="before">
+                        <field name="sub_process" />
+                    </xpath>
+                </field>
+            </record>
+
+
+            <record id="lot_issue_form_view" model="ir.ui.view">
+                <field name="name">lot_issue_form_view</field>
+                <field name="model">lot.issue</field>
+                <field name="type">form</field>
+                <field name="arch" type="xml">
+                    <form>
+                        <header>
+                            <button name="generate" type="object" string="Generate" class="oe_highlight" />
+
+                        </header>
+                        <sheet>
+                            <group >
+                                <group >
+
+                                    <field name="operation" widget = "many2many_tags" required="1" options="{'no_create_edit': True}"/>
+                                    <field name="work_id" invisible="1"/>
+
+
+                                </group>
+                                <group>
+                                    
+                                </group>
+                            </group>
+
+                            <field name="issue_id" nolabel='1'>
+                                <tree editable="bottom">
+                                    <field name="lot" options="{'no_create_edit': True}" readonly="1"/>
+                                    <field name="mo_id" readonly="1"/>
+                                    <field name="lot_qty"/>
+                                    <field name="issue_qty"/>
+                                </tree>
+                            </field>
+
+                        </sheet>
+
+                        <footer>
+                            <button name="done" type="object" string="Done" class="oe_highlight" />
+                        </footer>
+
+                    </form>
+                </field>
+            </record>
+
+
+            <record id="lot_receive_form_view" model="ir.ui.view">
+                <field name="name">lot_receive_form_view</field>
+                <field name="model">lot.receive</field>
+                <field name="type">form</field>
+                <field name="arch" type="xml">
+                    <form>
+                        <header>
+                            <button name="generate" type="object" string="Generate" class="oe_highlight" />
+
+                        </header>
+                        <sheet>
+                            <group >
+                                <group >
+
+                                    <field name="operation" required="1" options="{'no_create_edit': True}" widget = "many2many_tags"/>
+                                    <field name="work_id" invisible="1"/>
+
+                                </group>
+                                <group>
+                                    
+                                </group>
+                            </group>
+
+                            <field name="receive_id" nolabel='1'>
+                                <tree editable="bottom">
+                                    <field name="lot" options="{'no_create_edit': True}" readonly="1"/>
+                                    <field name="mo_id" readonly="1"/>
+                                    <field name="lot_qty" readonly="1"/>
+                                    <field name="to_receive"/>
+                                    <field name="received"/>
+                                    <field name="remaining_qty"/>
+                                </tree>
+                            </field>
+
+                        </sheet>
+
+                        <footer>
+                            <button name="done" type="object" string="Done" class="oe_highlight" />
+                        </footer>
+                        
+                    </form>
+                </field>
+            </record>
+
+
+</odoo>

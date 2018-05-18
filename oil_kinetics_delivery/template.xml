@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <report
+            id="report_for_oil_kinetics_delivery_challan" 
+            model="sale.order"
+            name="oil_kinetics_delivery.module_report"
+            file="oil_kinetics_delivery.module_report"
+            report_type="qweb-html"
+            string="Oil Kinetics Delivery Challan "/> 
+    </data>
+</openerp>

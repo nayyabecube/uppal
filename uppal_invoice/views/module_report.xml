@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+
+
+    <data>   
+
+        <template id="module_report">
+
+            <t t-call="report.html_container">
+                <t t-call="report.external_layout">
+                <t t-foreach="docs" t-as="o">
+
+                        <div class="page">
+
+                        	<style>
+								.data {
+									width: 100%;
+								}
+								.center-data {
+									width: 1200px;
+									margin: 0px auto;
+								}
+								.heading {
+									width: 80%;
+									float: left;
+								}
+								.center-data .solid {
+									font-weight: bold;
+								}
+								.center-data p {
+									line-height: .80;
+									margin-left: 10px;
+									margin-top: 12px;
+								}
+								.logo {
+									width: 20%;
+									float: right;
+								}
+								.clearfloat {
+									clear: both;
+									float: none;
+								}
+								.address {
+									width: 70%;
+									float: left;
+								}
+								.invoice {
+									width: 30%;
+									float: left;
+								}
+								.for {
+									width: 50%;
+									border-top: 1px solid;
+									text-align: center;
+									margin-top: 75px;
+
+								}
+								table, td, th {
+									border: 1px solid;
+									border-collapse: collapse;
+									padding: 8px;
+									margin-top: 10px;
+									text-align: center;
+									border-color: #b4b4b4;
+								}
+
+							</style>	                
+							
+							<div class="data">
+
+								<div class="center-data">
+
+									<div class="heading">
+										<h2>M/S UPPAL ENGINEERING COMPANY</h2>
+										<p>Uppal Center Ist Floor, 1st Floor ,99 Australia Building Railway Road, Lahore. Ph: 042-7666128</p>
+										<p><span class="solid">S.T.Reg #</span><span class="liquid">03-11-8412-002-55</span></p>
+										<p><span class="solid">N.T.N.</span><span class="liquid">1433222-1</span></p>
+									</div>
+
+									<div class="logo">
+
+										<img src="/uppal_sales_tax/static/src/img/uppal-logo.png" alt="uppal_logo"/>
+
+									</div>
+									<hr width="100%"></hr>
+									<br class="clearfloat"/>
+									<h2>INVOICE</h2>
+									<div class="address">
+										<p><span class="solid">Company Name:&#032;</span><span class="liquid">Uppal Machinery Store</span></p>
+										<p><span class="solid">Address:&#032;</span><span class="liquid">98 Railway Road Lahore</span></p>
+									</div>
+									<div class="invoice">
+										<p><span class="solid">INVOICE NO:&#032;</span><span class="liquid" t-esc="o.name"></span></p>
+										<p><span class="solid">Date:&#032;</span><span class="liquid" t-esc="context_timestamp(datetime.datetime.now()).strftime('%d-%m-%Y')"></span></p>
+										<p><span class="solid">Terms of Supply:&#032;</span><span class="liquid">Credit</span></p>
+									</div>
+									<br class="clearfloat"/>
+									<table width="100%">
+										<tr>
+											<th>Qunatity</th>
+											<th>P.O.NO</th>
+											<th>Particulars</th>
+											<th>Unit Price</th>
+											<th>Sub Total</th>
+										</tr>
+										<t t-set="rate" t-value="0"/>
+										<t t-set="amt" t-value="0"/>
+										<t t-set="amt" t-value="0"/>
+										<t t-set="val" t-value="0"/>
+										<t t-set="t_rate" t-value="0"/>
+										<t t-set="t_tax" t-value="0"/>
+										<t t-foreach="lisst" t-as="line">
+											<tr>
+												<td>
+													<span t-esc="int(line.product_uom_qty)"></span>
+												</td>
+												<td>
+													
+												</td>
+												<td>
+													<span t-esc="line.name"></span>
+												</td>
+												<td>
+													<span t-esc="'{:0,}'.format(int(float(line.price_unit)))"></span>
+												</td>
+												<td>
+													<span t-esc="'{:0,}'.format(int(float(line.price_subtotal)))"></span>
+													<t t-set="val" t-value="val+line.price_subtotal"/>
+												</td>
+											</tr>
+										</t>
+
+										<tr>
+											<td colspan="4"><b>Total</b></td>
+											<td></td>
+										</tr>
+
+									</table>
+									<div class="for">
+										<p>For Uppal Engineering Company</p>
+									</div>
+
+								</div>
+
+							</div>
+								
+                        </div><!--end of page-->
+                    </t>
+                </t>
+            </t>
+
+        </template>
+
+    </data>
+
+</openerp>

@@ -1,0 +1,88 @@
+<?xml version="1.0"?> 
+<odoo>
+    
+    <record id="bom_form_view_extension" model="ir.ui.view"> 
+        <field name="name">bom_form_view_extension</field> 
+        <field name="model">mrp.bom</field>
+        <field name="inherit_id" ref="mrp.mrp_bom_form_view"/>
+        <field name="type">form</field> 
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name ='bom_line_ids']/tree/field[@name ='operation_id']" position="after">
+                <field name="total_cost" />
+            </xpath>
+
+            <xpath expr="//field[@name ='bom_line_ids']/tree/field[@name ='product_qty']" position="after">
+                <field name="cost" />
+            </xpath>
+
+            <xpath expr="//field[@name ='routing_id']" position="after">
+                <field name="total_cost" />
+            </xpath>
+
+            <xpath expr="//field[@name ='type']" position="after">
+                <field name="resource_cost" />
+            </xpath>
+
+            <xpath expr="//page[2]" position="after">
+                <page name="resources" string="Resources">
+                        
+                    <field name="resource_tree">
+                        <tree editable="bottom">
+                            <field name="sequence"/>
+                            <field name="subprocess" />
+                            <field name="workcenter" />
+                            <field name="time" />
+                            <field name="cost" />
+                            <field name="total_costed" />
+                        </tree>
+                    </field>
+
+                </page>
+            </xpath>
+
+
+        </field>
+    </record>
+
+    <record id="bom_subprocess_form_view" model="ir.ui.view">
+        <field name="name">bom_subprocess_form_view</field>
+        <field name="model">mrp.sub.process</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Sub Processes">
+
+                <sheet>
+                    <group name="group_top"> 
+                        <field name="name" />
+                        <field name="workcenter" />
+                    </group>
+
+                </sheet>
+
+            </form>
+        </field>
+    </record>
+
+    <record id="bom_subprocess_form_view" model="ir.ui.view">
+        <field name="name">bom_subprocess_form_view</field>
+        <field name="model">mrp.sub.process</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Quality Notes">
+                <field name="name" />
+                <field name="workcenter" />
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="sub_processes_bom">
+        <field name="name">Sub Processes</field>
+        <field name="res_model">mrp.sub.process</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem name="Sub Processes" id="bom_sub_processes" parent="mrp.menu_mrp_bom" action="sub_processes_bom"  sequence="100"/>
+
+</odoo> 

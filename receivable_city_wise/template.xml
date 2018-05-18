@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <report
+            id="report_for_city_wise" 
+            model="res.partner"
+            name="receivable_city_wise.customer_report"
+            file="receivable_city_wise.customer_report"
+            report_type="qweb-html"
+            string=" "/>
+            
+
+         <record id="city_wise_wizard_form_view" model="ir.ui.view">
+            <field name="name">city_wise_wizard_form_view</field>
+            <field name="model">city.wise</field>
+            <field name="arch" type="xml">
+                <form string="Report">
+                    <group name="group_top">
+                        <group name="group_left"> 
+
+                            <field name="date"/>
+
+                        </group>
+                        <group name="group_right">
+                           
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="%(report_for_city_wise)d" type="action" string="Print" class="oe_highlight"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="city_wise_wizard" model="ir.actions.act_window">
+            <field name="name">Receivable Report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">city.wise</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="city_wise_wizard_form_view"/>
+            <field name="target">new</field> 
+        </record>
+
+
+        <menuitem name="Receivable City Wise" id="city_wise_item" parent="account.menu_finance_reports" action="city_wise_wizard"/>       
+
+    </data>
+</openerp>
+
+

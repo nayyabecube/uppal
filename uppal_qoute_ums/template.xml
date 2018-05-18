@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <report
+            id="report_for_uppal_qoute_ums" 
+            model="sale.order"
+            name="uppal_qoute_ums.module_report"
+            file="uppal_qoute_ums.module_report"
+            report_type="qweb-html"
+            string="Quotation UMS"/> 
+    </data>
+</openerp>

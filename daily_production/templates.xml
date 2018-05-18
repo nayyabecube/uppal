@@ -1,0 +1,144 @@
+<openerp>
+    <data>
+        <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%customer_form_naseem_bcube%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+
+            <!--========================[Form View-START]=====================-->
+ 
+                <record id="daily_prod_form_view" model="ir.ui.view">
+                    <field name="name">daily_prod_form_view</field>
+                    <field name="model">daily.production</field>
+                    <field name="type">form</field>
+                    <field name="arch" type="xml">
+                        <form string="Daily Production">
+                            <sheet>
+                                <group>
+                                    <group>
+
+                                        <field name="date"/>
+                                        
+                                    </group>
+                                    <group>
+                                    </group>
+                                </group>
+
+                                <group>
+                                    <group string="Production">
+                                    </group>
+                                </group>
+
+                                <field name="daily_id" nolabel='1'>
+                                  <tree editable="bottom">
+                                    <field name="product"/>
+                                    <field name="qty_kg"/>
+                                    <field name="qty_lit"/>
+                                    <field name="rate"/>
+                                    <field name="date"/>
+                                  </tree>
+                                </field>
+
+                                <group>
+                                    <group string="Consumption">
+                                    </group>
+                                </group>
+
+                                <field name="daily_consump" nolabel='1'>
+                                  <tree editable="bottom">
+                                    <field name="product"/>
+                                    <field name="qty"/>
+                                    <field name="date"/>
+                                  </tree>
+                                </field>
+
+                            </sheet>
+                        </form>
+                    </field>
+                </record>
+
+            <!--************************[Form View-ENDS]**********************-->
+             <!--========================[Search View-START]===================-->
+                <record id="view_tree_daily" model="ir.ui.view"> 
+                    <field name="name">view_tree_daily</field> 
+                    <field name="model">daily.production</field> 
+                    <field name="type">tree</field> 
+                    <field name="arch" type="xml"> 
+                        <tree> 
+                 
+                            <field name="date"/>
+     
+                        </tree> 
+                    </field> 
+            
+                </record>
+
+                
+            <!--************************[Search View-ENDS]********************-->
+
+            <!--========================[Action-START]========================-->
+                <record model="ir.actions.act_window" id="action_daily_product">
+                    <field name="name">Daily Production</field>
+                    <field name="res_model">daily.production</field>
+                    <field name="view_type">form</field>
+                    <field name="view_mode">tree,form</field>
+                </record>
+
+                <record model="ir.actions.act_window" id="action_daily_product_tree">
+                    <field name="name">Daily Production Tree</field>
+                    <field name="res_model">daily.production.tree</field>
+                    <field name="view_type">form</field>
+                    <field name="view_mode">tree,form</field>
+                </record>
+
+                <record model="ir.actions.act_window" id="action_daily_product_tree_consum">
+                    <field name="name">Daily Consumption Tree</field>
+                    <field name="res_model">daily.consumption.tree</field>
+                    <field name="view_type">form</field>
+                    <field name="view_mode">tree,form</field>
+                </record>
+
+            <!--************************[Action-ENDS]*************************-->
+
+            <!--========================[Menu-START]==========================-->
+                <menuitem name="Daily Production" id="daily_product_parent" parent="stock.menu_stock_root" sequence="14" />
+
+                <menuitem name="Daily Production" id="daily_product_child" parent="daily_product_parent" action="action_daily_product" sequence="1"/>
+
+                <menuitem name="Production" id="daily_product_tree" parent="daily_product_parent" action="action_daily_product_tree" sequence="2"/>
+
+                <menuitem name="Consumption" id="daily_product_consume" parent="daily_product_parent" action="action_daily_product_tree_consum" sequence="3"/>
+
+            <!--************************[Menu-ENDS]***************************-->
+        <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+
+            <!-- <record id="package_form_view" model="ir.ui.view">
+                    <field name="name">package_form_view</field>
+                    <field name="model">reg.package</field>
+                    <field name="type">form</field>
+                    <field name="arch" type="xml">
+                        <form string="PACKAGES">
+                            <sheet>
+                                <group>
+                                    <group>
+                                        <field name="name"/>
+                                        <field name="branch"/>
+                                    </group>
+
+                                    <group>
+                                        <field name="total"/>
+                                        <field name="monthly"/>
+                                    </group>
+                                </group>
+                            </sheet>
+                        </form>
+                    </field>
+            </record>
+
+            <record model="ir.actions.act_window" id="action_packages">
+                    <field name="name">PACKAGES</field>
+                    <field name="res_model">reg.package</field>
+                    <field name="view_type">form</field>
+                    <field name="view_mode">tree,form</field>
+                </record>
+
+            <menuitem name="Packages" id="reg_packages" parent="reg_form_heading" action="action_packages" sequence="2"/> -->
+    </data>
+</openerp>

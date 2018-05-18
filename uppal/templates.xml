@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+
+<record id="sale_order_extension_view" model="ir.ui.view"> 
+        <field name="name">sale_order_extension_view</field> 
+        <field name="model">sale.order</field> 
+        <field name="inherit_id" ref="sale.view_order_form"/> 
+        <field name="arch" type="xml"> 
+
+           <xpath expr="//field[@name='payment_term_id']" position="after">
+                    <field name="customer_po"/>
+                    <field name="order_state"/>
+                    <field name="entity"/>
+                    <field name="inquiry_no"/>
+            </xpath>
+
+            <xpath expr="//field[@name='note']" position="after">
+                    <field name="note_1"/>
+                    <field name="note_2"/>
+                    <field name="note_3"/>
+            </xpath>
+
+           <xpath expr="//field[@name='order_line']/tree/field[@name='qty_invoiced']" position="after">
+                    <field name="qty_hand"/>
+            </xpath>
+            
+           <xpath expr="//field[@name='order_line']/tree/field[@name='qty_hand']" position="after">
+                    <field name="qty_SO"/>
+            </xpath>
+
+           <xpath expr="//field[@name='order_line']/tree/field[@name='qty_SO']" position="after">
+                    <field name="qty_PO"/>
+            </xpath>
+
+           <!-- <xpath expr="//field[@name='order_line']/tree/field[@name='qty_PO']" position="after">
+                    <field name="qty_available"/>
+            </xpath> -->
+
+        </field> 
+    </record>
+
+
+
+
+
+ 
+<record id="purchase_order_extension_view" model="ir.ui.view"> 
+        <field name="name">purchase_order_extension_view</field> 
+        <field name="model">purchase.order</field> 
+        <field name="inherit_id" ref="purchase.purchase_order_form"/> 
+        <field name="arch" type="xml"> 
+           
+           <xpath expr="//field[@name='date_order']" position="after">
+                    <field name="order_state"/>
+            </xpath>
+
+           <xpath expr="//field[@name='order_line']/tree/field[@name='product_qty']" position="replace">
+                    <field name="product_qty" string="Ordered Qty"/>
+            </xpath>
+           <xpath expr="//field[@name='order_line']/tree/field[@name='date_planned']" position="replace">
+                    <field name="date_planned" invisible="1"/>
+            </xpath>
+
+           <xpath expr="//field[@name='order_line']/tree/field[@name='product_qty']" position="after">
+                    <field name="qty_received"/>
+            </xpath>
+
+           <xpath expr="//field[@name='order_line']/tree/field[@name='qty_received']" position="after">
+                    <field name="qty_invoiced"/>
+            </xpath>
+
+           <xpath expr="//field[@name='order_line']/tree/field[@name='qty_invoiced']" position="after">
+                    <field name="qty_hand"/>
+            </xpath>
+
+           <xpath expr="//field[@name='order_line']/tree/field[@name='qty_hand']" position="after">
+                    <field name="qty_SO"/>
+            </xpath>
+
+           <xpath expr="//field[@name='order_line']/tree/field[@name='qty_SO']" position="after">
+                    <field name="qty_PO"/>
+            </xpath>
+
+           <xpath expr="//field[@name='order_line']/tree/field[@name='qty_PO']" position="after">
+                    <field name="qty_available"/>
+            </xpath>
+
+           <xpath expr="//field[@name='order_line']/tree/field[@name='taxes_id']" position="replace">
+                    <field name="taxes_id" invisible="1"/>
+            </xpath>
+
+        </field> 
+    </record>
+
+    <record id="customer_extension_view" model="ir.ui.view"> 
+        <field name="name">customer_extension_view</field> 
+        <field name="model">res.partner</field> 
+        <field name="inherit_id" ref="base.view_partner_form"/> 
+        <field name="arch" type="xml"> 
+
+           <xpath expr="//field[@name='category_id']" position="after">
+                    <field name="ntn"/>
+                    <field name="sale_tax_reg"/>
+                    <field name="sale_tax_chk"/>
+            </xpath>
+
+        </field> 
+    </record>
+
+
+
+
+</odoo>

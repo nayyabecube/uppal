@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <report
+            id="report_for_uppal_delivery_challan_ums" 
+            model="stock.picking"
+            name="uppal_delivery_challan_ums.module_report"
+            file="uppal_delivery_challan_ums.module_report"
+            report_type="qweb-html"
+            string="DC UMS"/> 
+    </data>
+</openerp>

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+
+
+    <data>   
+
+        <template id="module_report">
+
+            <t t-call="report.html_container">
+                <t t-call="report.external_layout">
+                <t t-foreach="docs" t-as="o">
+
+                        <div class="page">
+
+            				<style>
+								.main-data {
+									width: 100%;
+								}
+								.center-data {
+									width: 1200px;
+									margin: 0px auto;
+								}
+								.center-data .solid{
+									font-weight: bold;
+									margin-right: 10px;
+								}
+								.center-data p{
+									line-height: 1;
+									margin-left: 20px;
+								}
+								.center-data h2 {
+									margin-left: 20px;
+								}
+								.heading {
+									width: 90%;
+									float: left;
+								}
+								.logo {
+									width: 10%;
+									float: right;
+									margin-bottom: 10px;
+								}
+								.challan {
+									width: 100%;
+								}
+								table, th, td {
+									border: 1px solid;
+									border-collapse: collapse;
+									text-align: center;
+									padding: 10px;
+									margin-bottom: 15px;
+									font-size: 17px;
+								}
+								.engineering {
+									width: 30%;
+									margin-top: 80px;
+								}
+								.no-margin {
+									margin-top: 0px;
+									margin-bottom: 0px;
+								}
+
+								hr {
+								    display: block;
+								    height: 1px;
+								    border: 0;
+								    border-top: 1px solid black;
+								    padding: 0; 
+
+								}
+
+
+							</style>
+							
+
+							<div class="main-data">
+
+								<div class="center-data">
+
+									<div class="heading">
+										<h2 class="no-margin">M/S UPPAL MACHINERY STORE</h2>
+										<p class="no-margin" style="font-size:17px">98 Railway Road, Lahore. Ph: 042-7666128</p>
+									</div>
+
+									<div class="logo">
+										<img src="/uppal_delivery_challan/static/src/img/uppal-logo.png" alt="uppal_logo"/>
+									</div>
+
+									<hr width="100%"></hr>
+
+									<div class="challan">
+										<h2>DELIVERY CHALLAN</h2>
+										<p style="font-size:17px"><span class="solid">DC NO.</span><span class="liquid" t-esc="o.origin"></span></p>
+										<p style="font-size:17px"><span class="solid">Dated:</span><span class="liquid" t-esc="o.min_date"></span></p>
+										<p style="font-size:17px"><span class="solid">CUSTOMER:</span>
+										<span class="liquid" t-esc="o.partner_id.name"></span><br></br>
+										<span class="liquid" t-esc="o.partner_id.street"></span><br></br>
+										<span class="liquid" t-esc="o.partner_id.city"></span><br></br>
+										<br></br>
+										<span class="liquid"><b>Ph:</b>
+										<t t-esc="o.partner_id.phone"/>
+										</span></p><br></br>
+										<!-- <p><span class="solid">Storage Location:</span><span class="liquid">Do14 Engineering Store Spares.</span></p> -->
+									</div>
+
+									<table width="100%">
+										<tr>
+											<th>S#</th>
+											<th>Purchase Order No:</th>
+											<th>Item Code</th>
+											<th>Item Detail</th>
+											<th>Quantity Delivered</th>
+										</tr>
+
+										<t t-set="amt" t-value="0"/>
+										<t t-set="i" t-value="1"/>
+										<t t-foreach="lisst" t-as="line">
+											<tr>
+												<td>
+													<t t-esc="i"/>
+                                                	<t t-set="i" t-value="i+1"/>
+												</td>
+												<td>
+													<span t-esc="get_po()"></span>
+												</td>
+												<td>-</td>
+												<td>
+													<span t-esc="line.product_id.name"></span>
+												</td>
+												<td>
+													<span t-esc="line.product_qty"></span>
+													<t t-set="amt" t-value="amt+line.product_qty"/>
+												</td>
+											</tr>
+										</t>
+										<tr>
+											<td colspan="4"><b>Total Quantity</b></td>
+											<td>
+												<span t-esc="amt"></span>
+											</td>
+										</tr>
+									</table>
+									<p style="font-size:17px">Verified that the above material is delivered in good condition.</p>
+									<div class="engineering" style="font-size:17px">
+										<hr></hr>
+										<p class="no-margin"><b>FOR UPPAL MACHINERY STORE</b></p>
+										<br></br>
+										<p class="no-margin" style="margin-left:50px">0300-8417170</p>
+									</div>
+								</div>
+
+							</div>
+								
+                        </div><!--end of page-->
+                    </t>
+                </t>
+            </t>
+
+        </template>
+
+    </data>
+
+</openerp>

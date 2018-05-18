@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <report
+            id="report_for_module" 
+            model="rm.assets.report" 
+            name="rm_assets_report.report_module" 
+            file="rm_assets_report.report_module"
+            report_type="qweb-html"
+            string="Rm Assets Report"/>
+
+        <record id="view_form_sales_annexure_champion" model="ir.ui.view">
+          <field name="name">view_form_sales_annexure_champion</field>
+          <field name="model">rm.assets.report</field>
+          <field name="arch" type="xml">
+
+            <form string="Wizard">
+
+              <group name="group_top">
+
+                <group name="right">
+                  <field name="form"/>
+                </group>
+
+                <group name="left"> 
+                  <field name="to"/>
+                </group>
+
+              </group>
+
+                    <footer>
+                        <button name="%(report_for_module)d" type="action" string="Print" class="oe_highlight" onclick="window.open('rm_assets_report/static/src/rm_assets_report.xlsx','_blank')"/>
+                        <a href="#" onclick="window.open('rm_assets_report/static/src/rm_assets_report.xlsx','_blank')">Click To View Report</a>
+                    </footer>
+            </form>
+
+          </field>
+
+        </record>
+
+
+    <record id="view_form_sales_annexure_champion_form" model="ir.ui.view"> 
+      <field name="name">view_form_sales_annexure_champion_form</field> 
+      <field name="model">rm.assets.report</field> 
+      <field name="type">form</field> 
+        <field name="arch" type="xml">
+        <form string="Sales Champion">
+           <header>
+            <a href="#" onclick="window.open('rm_assets_report/static/src/rm_assets_report.xlsx','_blank')">Click To View Report</a>
+          </header>
+          
+
+        </form> 
+      </field> 
+    </record> 
+
+
+
+    <record model="ir.actions.act_window" id="route_management_action">
+      <field name="name">Rm Assets Report</field>
+      <field name="res_model">rm.assets.report</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="view_form_sales_annexure_champion_form"/>
+    </record>
+
+
+
+        <record id="action_rm_assets_report" model="ir.actions.act_window">
+          <field name="name">Report</field>
+          <field name="type">ir.actions.act_window</field>
+          <field name="res_model">rm.assets.report</field>
+          <field name="view_type">form</field>
+          <field name="view_mode">form</field>
+          <field name="view_id" ref="view_form_sales_annexure_champion"/>
+          <field name="target">new</field>
+        </record>
+
+        <menuitem id="menu_sales_annexure_champion" name="Rm Asset Report" parent="account.menu_finance_reports" action="action_rm_assets_report" />
+
+    </data>
+</openerp>

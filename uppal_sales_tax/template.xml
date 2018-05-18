@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <report
+            id="report_for_uppal_sales_tax" 
+            model="sale.order"
+            name="uppal_sales_tax.module_report"
+            file="uppal_sales_tax.module_report"
+            report_type="qweb-html"
+            string="Sales Tax Invoice"/> 
+    </data>
+</openerp>

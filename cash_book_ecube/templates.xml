@@ -1,0 +1,104 @@
+<openerp>
+    <data>
+        <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%customer_form_naseem_bcube%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+
+            <!--========================[Form View-START]=====================-->
+ 
+        <record model="ir.actions.act_window" id="payment_configuration">
+            <field name="name">Cash</field>
+            <field name="res_model">account.bank.statement</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('journal_id.type', '=', 'cash')]</field>
+            <field name="context">{'journal_type':'cash'}</field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="bank_configuration">
+          <field name="name">Bank</field>
+          <field name="res_model">account.bank.statement</field>
+          <field name="view_type">form</field>
+          <field name="view_mode">tree,form</field>
+          <field name="domain">[('journal_id.type', '=', 'bank')]</field>
+          <field name="context">{'journal_type':'bank'}</field>
+        </record>
+
+
+        <menuitem name="Cash And Bank"
+          id="cash_configuration_main"
+          parent="account.menu_finance"
+          sequence="1"/>
+
+
+        <menuitem name="Cash"
+            id="cash_sales_configuration"
+            parent="cash_configuration_main"
+            action="payment_configuration"
+            sequence="1"/>
+
+
+        <menuitem name="Bank"
+            id="bank_sales_configuration"
+            parent="cash_configuration_main"
+            action="bank_configuration"
+            sequence="2"/>
+
+
+         <record id="account_bank_extension" model="ir.ui.view"> 
+        <field name="name">account_bank_extension</field> 
+        <field name="model">account.bank.statement</field>
+        <field name="inherit_id" ref="account.view_bank_statement_form"/>
+        <field name="type">form</field> 
+        <field name="arch" type="xml">
+    
+            <xpath expr="//field[@name='line_ids']/tree/field[@name='partner_id']" position="after">
+
+              <field name="account" attrs="{'readonly':[('e_check','=', True)]}"/>
+              <field name="ecube_journal" readonly="1"/>
+              <field name="e_check" invisible="1"/>
+              <!-- <field name="employee" invisible="1"/> -->
+
+            </xpath>
+
+            <xpath expr="//field[@name='line_ids']/tree/field[@name='ref']" position="after">
+
+              <field name="paid" attrs="{'readonly':[('e_check','=', True )]}"/>
+              <field name="received" attrs="{'readonly':[('e_check','=', True )]}"/>
+
+          </xpath>
+
+            <xpath expr="//field[@name='line_ids']/tree/field[@name='partner_id']" position="attributes">
+
+                <attribute name="attrs">{'readonly':[('e_check','=',True)]}</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='line_ids']/tree/field[@name='date']" position="attributes">
+
+                <attribute name="attrs">{'readonly':[('e_check','=',True)]}</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='line_ids']/tree/field[@name='name']" position="attributes">
+
+                <attribute name="attrs">{'readonly':[('e_check','=',True)]}</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='line_ids']/tree/field[@name='ref']" position="attributes">
+
+                <attribute name="attrs">{'readonly':[('e_check','=',True)]}</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='line_ids']/tree/field[@name='amount']" position="attributes">
+
+                <attribute name="attrs">{'readonly':[('e_check','=',True)]}</attribute>
+            </xpath>
+
+            <xpath expr="//button[@name='154']" position="replace">
+                <button name="post" type="object" string="Post Enteries" class="oe_highlight"/>
+            </xpath>
+
+        </field>
+    </record>
+
+
+    </data>
+</openerp>

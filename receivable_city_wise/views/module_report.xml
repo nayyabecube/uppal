@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+
+    <data>   
+
+        <template id="customer_report">
+
+            <t t-call="report.html_container">
+                <t t-call="report.external_layout">
+                    <!-- <t t-foreach="count" t-as="o"> -->
+
+                    <div class="page">
+
+                        <style>
+
+                            .main-data {
+                                width: 100%;
+                            }
+                            .center-data {
+                                width: 1000px;
+                                margin: 0px auto;
+                            }
+
+                            .center_table {
+                                width : 50%;
+                                float : left;
+                            }
+                            table, td, th {
+                                border: 1px solid;
+                                border-collapse: collapse;
+                                text-align: center;
+                                padding: 4px;
+                                padding-left: 15px;
+                            }
+                            h3  {
+                                text-align: center;
+                                margin: 0px 0px 30px 0px !important; 
+                            }
+
+                            .city {
+                                width : 100%;
+                                float: left;
+                                font-weight : bold;
+                                font-size: 17px;
+                            }
+
+                            .cust_bal {
+                                width : 70%;
+                                margin: 0px auto;
+                            }
+
+                            .cust_bal .name {
+                                width: 55%;
+                                float: left;                         
+                            }
+
+                            .cust_bal .dot {
+                                width: 5%;
+                                float: left;                         
+                            }
+
+                            .cust_bal .bal {
+                                width: 30%;
+                                float: left;                         
+                            }
+
+                            .clearfloat {
+                                clear: both;
+                                float: none;
+                                width: 1px;
+                                height: 1px;
+                                display: none;
+                            }
+
+                            .total {
+                                width : 70%;
+                                float: left;
+                                font-weight : bold;
+                                font-size: 17px;
+                                text-align: right;
+
+                            }
+
+                            .foot {
+                                width : 100%;
+                                float : left;
+                                margin-top: 20px;
+                            }
+
+                            .grand {
+                                width : 50%;
+                                margin: 0px auto;
+                                font-size: 17px;
+                                margin-top: 5px;
+                                text-align: center;                        
+
+                            }
+
+                            .grand .head {
+                                width: 45%;
+                                float: left;
+                                font-weight: bold;
+                                border: 1px solid;
+                            }
+
+                            .grand .data {
+                                width: 45%;
+                                float: left;
+                                font-weight: bold;
+                                border: 1px solid;                      
+
+                            }
+
+
+
+                            .total .tot{
+                                border-top: 1px solid;
+                            }
+
+                            table tr td {
+                                width: 50% !important;
+                                max-width: 50% !important;
+                            }
+
+                            body {
+                                margin-top: 0px !important;
+                            }
+
+                            .header {
+                                display: none !important;
+
+                            }
+
+                            .footer {
+                                display: none !important;
+                                
+                            }
+
+
+                        </style>
+
+                        <div class="main-data">
+
+                            <div class="center-data">
+                                <h3>RECEIVABLE CITY WISE</h3>
+
+
+                                    <t t-set="g_total" t-value="0"/>
+                                    <t t-foreach="city" t-as="o">
+
+                                        <div class="center_table">
+
+                                            <div class="city">
+                                                <span t-esc="o.name"></span>
+                                            </div>
+
+                                            <br class="clearfloat"/>
+
+                                            <t t-esc="get_cust(o.id)"/>
+                                            <t t-set="total" t-value="0"/>
+                                            <t t-foreach="cust" t-as="line">
+
+                                                <div class="cust_bal">
+
+                                                    <span class="name" t-esc="line.name"></span>
+
+                                                    <span class="dot">-</span>
+
+                                                    <span class="bal" t-esc="'{:0,}'.format(int(float(get_bal(line.id))))"></span>
+                                                    <t t-set="total" t-value="total+get_bal(line.id)"/>
+
+                                                </div>
+
+                                            </t>
+
+                                            <br class="clearfloat"/>
+
+                                            <div class="total">
+                                                <span class="tot" t-esc="'{:0,}'.format(int(float(total)))"></span>
+                                                <t t-set="g_total" t-value="g_total+total"/>
+                                            </div>
+
+                                        </div>
+                                    </t>
+
+                                    <br class="clearfloat"/>
+
+                                    <div class="foot">
+                                        <div class="grand">
+                                            <span class="head">Grand Total</span>
+                                            <span class="data" t-esc="'{:0,}'.format(int(float(g_total)))"></span>
+                                        </div>
+                                    </div>
+
+
+                                    <!-- <table width="100%">
+                                        <tr >
+                                            <th style="text-align:center">Customer </th>
+                                            <th style="text-align:center">Amount</th>
+                                        </tr>
+                                        <t t-set="g_total" t-value="0"/>
+                                        <t t-foreach="city" t-as="o">
+
+                                            <tr>
+                                                <td colspan="2" style="font-size:16px">
+                                                    <span t-esc="o.name"></span>
+                                                </td>
+                                            </tr>
+
+                                            <t t-esc="get_cust(o.id)"/>
+                                            <t t-set="total" t-value="0"/>
+                                            <t t-foreach="cust" t-as="line">
+
+                                                <tr >
+                                                    <td style="text-align:center">
+                                                        <span t-esc="line.name"></span>
+                                                    </td>
+                                                    <td style="text-align:center">
+                                                        <span t-esc="'{:0,}'.format(int(float(get_bal(line.id))))"></span>
+                                                        <t t-set="total" t-value="total+get_bal(line.id)"/>
+                                                    </td>
+                                                </tr>
+                                                
+                                            </t>
+
+                                            <tr>
+                                                <td style="text-align:center;font-weight:bold">Total</td>
+                                                <td style="text-align:center;font-weight:bold">
+                                                    
+                                                    <span t-esc="'{:0,}'.format(int(float(total)))"></span>
+                                                    <t t-set="g_total" t-value="g_total+total"/>
+
+                                                </td>
+                                            </tr>
+
+                                        </t>
+                                        <tr style="height:25px">
+                                            <td colspan="2" ></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-weight:bold">Grand Total</td>                                           
+                                            <td style="font-weight:bold;text-align:center">
+                                                <span t-esc="'{:0,}'.format(int(float(g_total)))"></span>
+                                            </td>                                           
+                                        </tr>
+
+                                    </table> -->
+                                
+                    
+                    
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- </t> -->
+
+                </t>
+            </t>
+
+        </template>
+
+    </data>
+
+</openerp>
